@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CardioPredict | Heart Disease Risk Assessment</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', path='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+
+    <!-- Background decorations -->
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                <span>♥</span>
+            </div>
+
+            <div>
+                <div class="brand-name">CardioPredict</div>
+                <div class="brand-subtitle">
+                    AI Risk Assessment
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            <span>AI Model Online</span>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    <span>✦</span>
+                    MACHINE LEARNING POWERED
+                </div>
+
+                <h1>
+                    Understand your
+                    <span>heart health risk.</span>
+                </h1>
+
+                <p>
+                    CardioPredict analyzes key cardiovascular
+                    indicators using a trained Random Forest
+                    machine learning model.
+                </p>
+
+            </div>
+
+
+            <div class="hero-heart">
+
+                <div class="pulse-ring ring-one"></div>
+                <div class="pulse-ring ring-two"></div>
+
+                <div class="heart-core">
+                    ♥
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DASHBOARD -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- INPUT CARD -->
+
+            <div class="card input-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            STEP 01
+                        </span>
+
+                        <h2>Patient Information</h2>
+
+                        <p>
+                            Enter the patient's clinical
+                            parameters below.
+                        </p>
+
+                    </div>
+
+                    <div class="card-icon">
+                        +
+                    </div>
+
+                </div>
+
+
+                <form id="predictionForm">
+
+
+                    <!-- AGE -->
+
+                    <div class="form-group">
+
+                        <label for="age">
+                            Age
+                            <span>years</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="age"
+                            min="1"
+                            max="120"
+                            placeholder="e.g. 55"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SEX -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Sex
+                        </label>
+
+                        <div class="segmented-control">
+
+                            <button
+                                type="button"
+                                class="segment active"
+                                data-field="sex"
+                                data-value="1">
+                                Male
+                            </button>
+
+                            <button
+                                type="button"
+                                class="segment"
+                                data-field="sex"
+                                data-value="0">
+                                Female
+                            </button>
+
+                        </div>
+
+                        <input
+                            type="hidden"
+                            id="sex"
+                            value="1"
+                        >
+
+                    </div>
+
+
+                    <!-- CHEST PAIN -->
+
+                    <div class="form-group">
+
+                        <label for="chest_pain_type">
+                            Chest Pain Type
+                        </label>
+
+                        <select id="chest_pain_type">
+
+                            <option value="0">
+                                Typical Angina
+                            </option>
+
+                            <option value="1">
+                                Atypical Angina
+                            </option>
+
+                            <option value="2" selected>
+                                Non-anginal Pain
+                            </option>
+
+                            <option value="3">
+                                Asymptomatic
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="two-column">
+
+
+                        <!-- BLOOD PRESSURE -->
+
+                        <div class="form-group">
+
+                            <label for="resting_blood_pressure">
+                                Resting Blood Pressure
+                                <span>mmHg</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="resting_blood_pressure"
+                                min="50"
+                                max="250"
+                                placeholder="130"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- CHOLESTEROL -->
+
+                        <div class="form-group">
+
+                            <label for="cholesterol">
+                                Cholesterol
+                                <span>mg/dL</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="cholesterol"
+                                min="50"
+                                max="600"
+                                placeholder="240"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="two-column">
+
+
+                        <!-- MAX HEART RATE -->
+
+                        <div class="form-group">
+
+                            <label for="max_heart_rate">
+                                Max Heart Rate
+                                <span>bpm</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="max_heart_rate"
+                                min="50"
+                                max="250"
+                                placeholder="150"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- ST DEPRESSION -->
+
+                        <div class="form-group">
+
+                            <label for="st_depression">
+                                ST Depression
+                            </label>
+
+                            <input
+                                type="number"
+                                id="st_depression"
+                                min="0"
+                                max="10"
+                                step="0.1"
+                                placeholder="1.0"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RESTING ECG -->
+
+                    <div class="form-group">
+
+                        <label for="resting_ecg">
+                            Resting ECG
+                        </label>
+
+                        <select id="resting_ecg">
+
+                            <option value="0">
+                                Normal
+                            </option>
+
+                            <option value="1" selected>
+                                ST-T Wave Abnormality
+                            </option>
+
+                            <option value="2">
+                                Left Ventricular Hypertrophy
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="two-column">
+
+
+                        <!-- FASTING BLOOD SUGAR -->
+
+                        <div class="form-group">
+
+                            <label>
+                                Fasting Blood Sugar
+                            </label>
+
+                            <div class="segmented-control">
+
+                                <button
+                                    type="button"
+                                    class="segment active"
+                                    data-field="fasting_blood_sugar"
+                                    data-value="0">
+                                    Normal
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="segment"
+                                    data-field="fasting_blood_sugar"
+                                    data-value="1">
+                                    High
+                                </button>
+
+                            </div>
+
+                            <input
+                                type="hidden"
+                                id="fasting_blood_sugar"
+                                value="0"
+                            >
+
+                        </div>
+
+
+                        <!-- EXERCISE ANGINA -->
+
+                        <div class="form-group">
+
+                            <label>
+                                Exercise Angina
+                            </label>
+
+                            <div class="segmented-control">
+
+                                <button
+                                    type="button"
+                                    class="segment active"
+                                    data-field="exercise_induced_angina"
+                                    data-value="0">
+                                    No
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="segment"
+                                    data-field="exercise_induced_angina"
+                                    data-value="1">
+                                    Yes
+                                </button>
+
+                            </div>
+
+                            <input
+                                type="hidden"
+                                id="exercise_induced_angina"
+                                value="0"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="two-column">
+
+
+                        <!-- ST SLOPE -->
+
+                        <div class="form-group">
+
+                            <label for="st_slope">
+                                ST Slope
+                            </label>
+
+                            <select id="st_slope">
+
+                                <option value="0">
+                                    Downsloping
+                                </option>
+
+                                <option value="1" selected>
+                                    Flat
+                                </option>
+
+                                <option value="2">
+                                    Upsloping
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- VESSELS -->
+
+                        <div class="form-group">
+
+                            <label for="num_major_vessels">
+                                Major Vessels
+                            </label>
+
+                            <select id="num_major_vessels">
+
+                                <option value="0" selected>
+                                    0
+                                </option>
+
+                                <option value="1">
+                                    1
+                                </option>
+
+                                <option value="2">
+                                    2
+                                </option>
+
+                                <option value="3">
+                                    3
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- THALASSEMIA -->
+
+                    <div class="form-group">
+
+                        <label for="thalassemia">
+                            Thalassemia
+                        </label>
+
+                        <select id="thalassemia">
+
+                            <option value="0">
+                                Normal
+                            </option>
+
+                            <option value="1">
+                                Fixed Defect
+                            </option>
+
+                            <option value="2" selected>
+                                Normal
+                            </option>
+
+                            <option value="3">
+                                Reversible Defect
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="predict-button"
+                        id="predictButton">
+
+                        <span class="button-text">
+                            Analyze Heart Risk
+                        </span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+            </div>
+
+
+            <!-- RESULT CARD -->
+
+            <div class="card result-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            STEP 02
+                        </span>
+
+                        <h2>Risk Assessment</h2>
+
+                        <p>
+                            Your AI-generated assessment
+                            will appear here.
+                        </p>
+
+                    </div>
+
+                    <div class="live-badge">
+                        LIVE
+                    </div>
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    id="emptyState"
+                    class="empty-state">
+
+                    <div class="empty-icon">
+                        ♥
+                    </div>
+
+                    <h3>
+                        Ready to analyze
+                    </h3>
+
+                    <p>
+                        Enter the patient's information
+                        and click <strong>Analyze Heart Risk</strong>.
+                    </p>
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div
+                    id="resultContent"
+                    class="result-content hidden">
+
+
+                    <div class="risk-score">
+
+                        <div class="score-ring">
+
+                            <svg
+                                viewBox="0 0 200 200">
+
+                                <circle
+                                    class="ring-background"
+                                    cx="100"
+                                    cy="100"
+                                    r="82">
+                                </circle>
+
+                                <circle
+                                    id="scoreProgress"
+                                    class="ring-progress"
+                                    cx="100"
+                                    cy="100"
+                                    r="82">
+                                </circle>
+
+                            </svg>
+
+                            <div class="score-center">
+
+                                <span
+                                    id="riskPercentage">
+                                    0%
+                                </span>
+
+                                <small>
+                                    Risk Score
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="riskBadge"
+                        class="risk-badge">
+
+                        HIGHER RISK
+
+                    </div>
+
+
+                    <h3
+                        id="riskTitle"
+                        class="risk-title">
+                        Higher Risk Detected
+                    </h3>
+
+
+                    <p
+                        id="riskDescription"
+                        class="risk-description">
+
+                        The model identifies a higher
+                        probability of heart disease based
+                        on the provided parameters.
+
+                    </p>
+
+
+                    <!-- PROBABILITIES -->
+
+                    <div class="probability-section">
+
+                        <div class="probability-row">
+
+                            <div>
+
+                                <span>
+                                    Heart Disease
+                                </span>
+
+                                <strong
+                                    id="diseaseProbability">
+                                    0%
+                                </strong>
+
+                            </div>
+
+                            <div class="progress-bar">
+
+                                <div
+                                    id="diseaseProgress"
+                                    class="progress-fill">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="probability-row">
+
+                            <div>
+
+                                <span>
+                                    No Heart Disease
+                                </span>
+
+                                <strong
+                                    id="noDiseaseProbability">
+                                    0%
+                                </strong>
+
+                            </div>
+
+                            <div class="progress-bar">
+
+                                <div
+                                    id="noDiseaseProgress"
+                                    class="progress-fill secondary">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MODEL -->
+
+                    <div class="model-card">
+
+                        <div class="model-icon">
+                            ✦
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Prediction Engine
+                            </span>
+
+                            <strong>
+                                Random Forest
+                            </strong>
+
+                        </div>
+
+                        <div class="model-status">
+                            Active
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- METRICS -->
+
+        <section class="metrics-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        MODEL PERFORMANCE
+                    </span>
+
+                    <h2>
+                        Built on measurable performance.
+                    </h2>
+
+                </div>
+
+                <p>
+                    Evaluated on a held-out test set
+                    using multiple classification metrics.
+                </p>
+
+            </div>
+
+
+            <div class="metrics-grid">
+
+
+                <div class="metric-card">
+
+                    <div class="metric-icon">
+                        ◉
+                    </div>
+
+                    <span>Accuracy</span>
+
+                    <strong>70.00%</strong>
+
+                    <small>
+                        Overall predictions
+                    </small>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-icon">
+                        ↗
+                    </div>
+
+                    <span>Recall</span>
+
+                    <strong>77.27%</strong>
+
+                    <small>
+                        Disease detection
+                    </small>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-icon">
+                        ◆
+                    </div>
+
+                    <span>F1 Score</span>
+
+                    <strong>73.91%</strong>
+
+                    <small>
+                        Balanced performance
+                    </small>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-icon">
+                        ◎
+                    </div>
+
+                    <span>ROC-AUC</span>
+
+                    <strong>0.7809</strong>
+
+                    <small>
+                        Classification ability
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MODEL INSIGHTS -->
+
+        <section class="insights-section">
+
+            <div class="insight-card">
+
+                <div class="insight-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            MODEL INSIGHTS
+                        </span>
+
+                        <h2>
+                            What influences the prediction?
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="insight-content">
+
+                    <div class="feature-list">
+
+                        <div class="feature-item">
+
+                            <span>01</span>
+
+                            <div>
+
+                                <strong>
+                                    Maximum Heart Rate
+                                </strong>
+
+                                <div class="mini-bar">
+                                    <div style="width: 100%"></div>
+                                </div>
+
+                            </div>
+
+                            <b>17.54%</b>
+
+                        </div>
+
+
+                        <div class="feature-item">
+
+                            <span>02</span>
+
+                            <div>
+
+                                <strong>
+                                    Age
+                                </strong>
+
+                                <div class="mini-bar">
+                                    <div style="width: 83.7%"></div>
+                                </div>
+
+                            </div>
+
+                            <b>14.67%</b>
+
+                        </div>
+
+
+                        <div class="feature-item">
+
+                            <span>03</span>
+
+                            <div>
+
+                                <strong>
+                                    Cholesterol
+                                </strong>
+
+                                <div class="mini-bar">
+                                    <div style="width: 80%"></div>
+                                </div>
+
+                            </div>
+
+                            <b>14.03%</b>
+
+                        </div>
+
+
+                        <div class="feature-item">
+
+                            <span>04</span>
+
+                            <div>
+
+                                <strong>
+                                    Resting Blood Pressure
+                                </strong>
+
+                                <div class="mini-bar">
+                                    <div style="width: 74.9%"></div>
+                                </div>
+
+                            </div>
+
+                            <b>13.14%</b>
+
+                        </div>
+
+
+                        <div class="feature-item">
+
+                            <span>05</span>
+
+                            <div>
+
+                                <strong>
+                                    ST Depression
+                                </strong>
+
+                                <div class="mini-bar">
+                                    <div style="width: 59.5%"></div>
+                                </div>
+
+                            </div>
+
+                            <b>10.44%</b>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DISCLAIMER -->
+
+        <section class="disclaimer">
+
+            <span>ⓘ</span>
+
+            <p>
+                <strong>Important:</strong>
+                CardioPredict is an educational machine learning
+                project and is not a medical diagnostic tool.
+                Predictions should not be used as a substitute
+                for professional medical advice.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+
+        <div>
+            CardioPredict
+        </div>
+
+        <span>
+            Machine Learning • FastAPI • Random Forest
+        </span>
+
+    </footer>
+
+
+    <script
+        src="{{ url_for('static', path='js/script.js') }}">
+    </script>
+
+</body>
+
+</html>
